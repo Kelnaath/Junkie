@@ -1,0 +1,8 @@
+## Interface: 90010
+## Title: Junkie
+## Version: 0.1-preview
+## Notes: Auto sell items based on filters you control.
+## Author: Klexidor
+## DefaultState: enabled
+
+Junkie.lua
