@@ -5,4 +5,9 @@
 ## Author: Klexidor
 ## DefaultState: enabled
 
-Junkie.lua
+#classes
+filter.lua
+#scripts
+config.lua
+junkie.lua
+init.lua

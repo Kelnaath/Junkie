@@ -1,35 +1,4 @@
---[[
-    FILTER CLASS, ToDo: Split in own class
-]]
-Filter = {
-    id = "TEMPLATE", -- Identifier of filter.
-    rarity = {}, -- Uses Item.ItemQuality values from WoW API to compare, ToDo: Actually use a table containing all rarirties. BitMask?
-    onlyLowLevelGear = true, --For now just use a bool. ToDo: make level settable as a number.
-    bindType = 1, --Default is BoP.
-    ignoreTypes = {}, --ToDo: Create item type ignore list. For now we only sell junk and gear.
-    specificIgnore = {} --ToDo: Create specific item ignore list.
-}
-
-function Filter:new (o)
-    o = o or {};
-    setmetatable(o, self);
-    self.__index = self;
-    return o;
-end
-
-function Filter:ShouldIgnoreItem(itemId)
-    return false;
-end
-
-function Filter:ContainsRarity(itemRarity)
-    for i=1, #self.rarity,1 do
-        if self.rarity[i] == itemRarity then
-            return true;
-        end
-    end
-
-    return false;
-end
+local filter, config, junkie = ...
 
 local itemBatch = {};
 local bop_epic_filter = Filter:new({id = "Low Level BoP Epics", rarity = {0, 1, 2, 3, 4}});
@@ -123,51 +92,3 @@ end
 local frame = CreateFrame("Frame", "JunkieFrame", UIParent, "MerchantItemTemplate");
 frame:RegisterEvent("MERCHANT_SHOW");
 frame:SetScript("OnEvent", OnEvent);
-
---SETTINGS
-local settingsFrame = CreateFrame("Frame", "JunkieSettings", UIParent, "BasicFrameTemplateWithInset");
-settingsFrame:SetSize(300, 360);
-settingsFrame:SetPoint("CENTER", UIParent, "CENTER");
-
-settingsFrame.title = settingsFrame:CreateFontString(nil, "OVERLAY");
-settingsFrame.title:SetFontObject("GameFontHighlight");
-settingsFrame.title:SetPoint("LEFT", settingsFrame.TitleBg, "LEFT", 5, 0);
-settingsFrame.title:SetText("Junkie Settings");
-
---Rarities
-settingsFrame.rarityLabel = settingsFrame:CreateFontString(nil, "OVERLAY");
-settingsFrame.rarityLabel:SetFontObject("GameFontHighlight");
-settingsFrame.rarityLabel:SetPoint("TOPLEFT", settingsFrame.InsetBorderTopLeft, "TOPLEFT", 5, -10);
-settingsFrame.rarityLabel:SetText("Rarities to Sell");
-
-settingsFrame.checkButtonJunk = CreateFrame("CheckButton", "JunkieSettings_trashCheckbox", settingsFrame, "UICheckButtonTemplate");
-settingsFrame.checkButtonJunk:SetPoint("TOPLEFT", settingsFrame.rarityLabel, "TOPLEFT", 0, -10);
-settingsFrame.checkButtonJunk.text:SetTextColor(0.62, 0.62, 0.62, 1);
-settingsFrame.checkButtonJunk.text:SetText("Poor");
-
-settingsFrame.checkButtonCommon = CreateFrame("CheckButton", "JunkieSettings_commonCheckbox", settingsFrame, "UICheckButtonTemplate");
-settingsFrame.checkButtonCommon:SetPoint("TOPLEFT", settingsFrame.checkButtonJunk, "TOPLEFT", 0, -25);
-settingsFrame.checkButtonCommon.text:SetTextColor(1, 1, 1, 1);
-settingsFrame.checkButtonCommon.text:SetText("Common");
-
-settingsFrame.checkButtonUncommon = CreateFrame("CheckButton", "JunkieSettings_uncommonCheckbox", settingsFrame, "UICheckButtonTemplate");
-settingsFrame.checkButtonUncommon:SetPoint("TOPLEFT", settingsFrame.checkButtonCommon, "TOPLEFT", 0, -25);
-settingsFrame.checkButtonUncommon.text:SetTextColor(0.12, 1, 0, 1);
-settingsFrame.checkButtonUncommon.text:SetText("Uncommon");
-
-settingsFrame.checkButtonRare = CreateFrame("CheckButton", "JunkieSettings_rareCheckbox", settingsFrame, "UICheckButtonTemplate");
-settingsFrame.checkButtonRare:SetPoint("TOPLEFT", settingsFrame.checkButtonUncommon, "TOPLEFT", 0, -25);
-settingsFrame.checkButtonRare.text:SetTextColor(0, 0.44, 0.87, 1);
-settingsFrame.checkButtonRare.text:SetText("Rare");
-
-settingsFrame.checkButtonEpic = CreateFrame("CheckButton", "JunkieSettings_epicCheckbox", settingsFrame, "UICheckButtonTemplate");
-settingsFrame.checkButtonEpic:SetPoint("TOPLEFT", settingsFrame.checkButtonRare, "TOPLEFT", 0, -25);
-settingsFrame.checkButtonEpic.text:SetTextColor(0.64, 0.21, 0.93, 1);
-settingsFrame.checkButtonEpic.text:SetText("Epic");
-
---Level
-
-
---Shortcuts
-
-print("Loaded Junkie");
