@@ -2,6 +2,11 @@ local _, core = ...;
 core.Config = {};
 
 local Config = core.Config;
+
+local bop_epic_filter = Filter:new({id = "Low Level BoP Epics", rarity = {0, 1, 2, 3, 4}}); --SomeTest Filter
+
+Config.Filter = bop_epic_filter;
+
 local UIConfig;
 
 function Config:CreateRarityCheckbox(frameName, parentFrame, relativePoint, color, offset, text)
@@ -40,8 +45,29 @@ function Config:CreateMenu()
     UIConfig.checkButtonRare = self:CreateRarityCheckbox("JunkieSettings_rareCheckbox", UIConfig, UIConfig.checkButtonUncommon, {r=0, g= 0.44, b=0.87, a=1}, {x=0, y= -25}, "Rare");
     UIConfig.checkButtonEpic = self:CreateRarityCheckbox("JunkieSettings_epicCheckbox", UIConfig, UIConfig.checkButtonRare, {r=0.64, g= 0.21, b=0.93, a=1}, {x=0, y= -25}, "Epic");
 
+    --Save Button
+    UIConfig.saveButton = CreateFrame("Button", "JunkieSettings_Save", UIConfig, "GameMenuButtonTemplate");
+    UIConfig.saveButton:SetPoint("BOTTOMRIGHT", UIConfig.InsetBorderBottomRight, "BOTTOMRIGHT", -5, 10);
+    UIConfig.saveButton:SetText("Save Settings");
+    UIConfig.saveButton:SetScript("OnClick", Config.SaveConfig);
+
     UIConfig:Hide();
     return UIConfig;
+end;
+
+function Config:SaveConfig()
+    local filterSettings = Filter:new({id = "filter", rarity = {}});
+
+    local i = 0;
+
+    if UIConfig.checkButtonJunk:GetChecked() then i= i+1 ; filterSettings.rarity[i] = 0; end;
+    if UIConfig.checkButtonCommon:GetChecked() then i= i+1 ; filterSettings.rarity[i] = 1; end;
+    if UIConfig.checkButtonUncommon:GetChecked() then i= i+1 ; filterSettings.rarity[i] = 2; end;
+    if UIConfig.checkButtonRare:GetChecked() then i= i+1 ; filterSettings.rarity[i] = 3; end;
+    if UIConfig.checkButtonEpic:GetChecked() then i= i+1 ; filterSettings.rarity[i] = 4; end;
+
+    Config.Filter = filterSettings;
+end
 
     --[[
     CreateFrame("CheckButton", "JunkieSettings_trashCheckbox", settingsFrame, "UICheckButtonTemplate");
@@ -70,5 +96,3 @@ function Config:CreateMenu()
     UIConfig.checkButtonEpic.text:SetTextColor(0.64, 0.21, 0.93, 1);
     UIConfig.checkButtonEpic.text:SetText("Epic");
     ]]
-
-end

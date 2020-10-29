@@ -27,6 +27,7 @@ end
 
 function Filter:ContainsRarity(itemRarity)
     for i=1, #self.rarity,1 do
+        print("table rarirty: " .. self.rarity[i] .. " itemrarity: " .. itemRarity)
         if self.rarity[i] == itemRarity then
             return true;
         end

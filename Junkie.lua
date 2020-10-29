@@ -1,7 +1,6 @@
-local filter, config, junkie = ...
+local _, core = ...
 
 local itemBatch = {};
-local bop_epic_filter = Filter:new({id = "Low Level BoP Epics", rarity = {0, 1, 2, 3, 4}});
 
 --[[
     Repairs your gear when interacting with a merchant.
@@ -84,7 +83,7 @@ local function OnEvent(self, event, ...)
     --ToDo: Call functions based on user settings.
     if(event == "MERCHANT_SHOW") then    
         RepairGear();
-        SellItemsWithFilter(bop_epic_filter);
+        SellItemsWithFilter(core.Config.Filter);
     end
 end
 
