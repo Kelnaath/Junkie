@@ -68,31 +68,3 @@ function Config:SaveConfig()
 
     Config.Filter = filterSettings;
 end
-
-    --[[
-    CreateFrame("CheckButton", "JunkieSettings_trashCheckbox", settingsFrame, "UICheckButtonTemplate");
-    UIConfig.checkButtonJunk:SetPoint("TOPLEFT", settingsFrame.rarityLabel, "TOPLEFT", 0, -10);
-    UIConfig.checkButtonJunk.text:SetTextColor(0.62, 0.62, 0.62, 1);
-    UIConfig.checkButtonJunk.text:SetText("Poor");
-
-    
-    UIConfig.checkButtonCommon = CreateFrame("CheckButton", "JunkieSettings_commonCheckbox", settingsFrame, "UICheckButtonTemplate");
-    UIConfig.checkButtonCommon:SetPoint("TOPLEFT", settingsFrame.checkButtonJunk, "TOPLEFT", 0, -25);
-    UIConfig.checkButtonCommon.text:SetTextColor(1, 1, 1, 1);
-    UIConfig.checkButtonCommon.text:SetText("Common");
-    
-    UIConfig.checkButtonUncommon = CreateFrame("CheckButton", "JunkieSettings_uncommonCheckbox", settingsFrame, "UICheckButtonTemplate");
-    UIConfig.checkButtonUncommon:SetPoint("TOPLEFT", settingsFrame.checkButtonCommon, "TOPLEFT", 0, -25);
-    UIConfig.checkButtonUncommon.text:SetTextColor(0.12, 1, 0, 1);
-    UIConfig.checkButtonUncommon.text:SetText("Uncommon");
-    
-    UIConfig.checkButtonRare = CreateFrame("CheckButton", "JunkieSettings_rareCheckbox", settingsFrame, "UICheckButtonTemplate");
-    UIConfig.checkButtonRare:SetPoint("TOPLEFT", settingsFrame.checkButtonUncommon, "TOPLEFT", 0, -25);
-    UIConfig.checkButtonRare.text:SetTextColor(0, 0.44, 0.87, 1);
-    UIConfig.checkButtonRare.text:SetText("Rare");
-    
-    UIConfig.checkButtonEpic = CreateFrame("CheckButton", "JunkieSettings_epicCheckbox", settingsFrame, "UICheckButtonTemplate");
-    UIConfig.checkButtonEpic:SetPoint("TOPLEFT", settingsFrame.checkButtonRare, "TOPLEFT", 0, -25);
-    UIConfig.checkButtonEpic.text:SetTextColor(0.64, 0.21, 0.93, 1);
-    UIConfig.checkButtonEpic.text:SetText("Epic");
-    ]]
