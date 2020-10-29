@@ -3,7 +3,7 @@ core.Config = {};
 
 local Config = core.Config;
 
-local bop_epic_filter = Filter:new({id = "Low Level BoP Epics", rarity = {0, 1, 2, 3, 4}}); --SomeTest Filter
+local bop_epic_filter = Filter:new({id = "Low Level BoP Epics", rarity = {0, 1, 2, 3, 4}, itemTypes = {"Armor", "Weapon"}}); --SomeTest Filter
 
 Config.Filter = bop_epic_filter;
 

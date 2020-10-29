@@ -1,18 +1,16 @@
 local _, core = ... --Namespace
 
 --[[
-    FILTER CLASS, ToDo: Split in own class
+    FILTER CLASS
 ]]
 Filter = {
     id = "TEMPLATE", -- Identifier of filter.
-    rarity = {}, -- Uses Item.ItemQuality values from WoW API to compare, ToDo: Actually use a table containing all rarirties. BitMask?
+    rarity = {}, -- Uses Item.ItemQuality values from WoW API to compare.
     onlyLowLevelGear = true, --For now just use a bool. ToDo: make level settable as a number.
     bindType = 1, --Default is BoP.
-    ignoreTypes = {}, --ToDo: Create item type ignore list. For now we only sell junk and gear.
+    itemTypes = {}, --ToDo: Create item type ignore list. For now we only sell junk and gear.
     specificIgnore = {} --ToDo: Create specific item ignore list.
 }
-
-core.Filter = Filter;
 
 function Filter:new (o)
     o = o or {};
@@ -25,13 +23,11 @@ function Filter:ShouldIgnoreItem(itemId)
     return false;
 end
 
-function Filter:ContainsRarity(itemRarity)
-    for i=1, #self.rarity,1 do
-        print("table rarirty: " .. self.rarity[i] .. " itemrarity: " .. itemRarity)
-        if self.rarity[i] == itemRarity then
+function Filter:TypeIsInTable(filterType, filterTable)
+    for i=1, #filterTable, 1 do
+        print("table type: " .. filterTable[i] .. " itemType: " .. filterType)
+        if filterTable[i] == filterType then
             return true;
         end
     end
-
-    return false;
 end
